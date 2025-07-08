@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -26,7 +27,7 @@ public class MyTestCases {
 	
 	
 	@Test (priority=1)
-	public void signup()
+	public void signup() throws InterruptedException
 	{		driver.get(singnupPage);
 	
 	//element
@@ -44,7 +45,15 @@ public class MyTestCases {
 	WebElement accountNameLoginInput = driver.findElement(By.id("AccountFrm_loginname"));
 	WebElement passwordInput = driver.findElement(By.id("AccountFrm_password"));
 	WebElement confirmPasswordInput = driver.findElement(By.id("AccountFrm_confirm"));
-
+	WebElement subscribeInput = driver.findElement(By.id("AccountFrm_newsletter1"));
+	WebElement agreeInput = driver.findElement(By.id("AccountFrm_agree"));
+	//WebElement buttoncretae = driver.findElement(By.cssSelector(".btn.btn-orange.pull-right.lock-on-click"));
+    WebElement buttoncretae = driver.findElement(By.cssSelector("button[title='Continue']"));
+	
+	
+	
+	WebElement countryInput = driver.findElement(By.id("AccountFrm_country_id"));
+	WebElement stateInput = driver.findElement(By.id("AccountFrm_zone_id"));
 	
 	
 	//Data
@@ -63,6 +72,24 @@ public class MyTestCases {
 	String address1="Sweifieh";
 	String address2="Khaled St.";
 	String city="Amman";
+	
+	Thread.sleep(1000);
+	
+	int numberOfOptioscountry=countryInput.findElements(By.tagName("option")).size();
+	Select myselecmySelectCountry = new Select(countryInput);
+	//myselecmySelectCountry.selectByVisibleText("Jordan");
+	int randomcountryIndex = rand.nextInt(1,numberOfOptioscountry);
+	myselecmySelectCountry.selectByIndex(randomcountryIndex);
+	
+	Thread.sleep(1000);
+	
+	
+	
+	int numberOfOptios=stateInput.findElements(By.tagName("option")).size();
+	Select myselecmySelectStatet = new Select(stateInput);
+	int randomStateIndex = rand.nextInt(1,numberOfOptios);
+	myselecmySelectStatet.selectByIndex(randomStateIndex);
+	
 	String postalcode="11191";
 	String login = firstName[myFirstNameIndex] + lastName[mylastNameIndex]  + randonnumberforemail ;
 	String pass = "New854$912";
@@ -81,6 +108,9 @@ public class MyTestCases {
 	accountNameLoginInput.sendKeys(login);
 	passwordInput.sendKeys(pass);
 	confirmPasswordInput.sendKeys(pass);
+	subscribeInput.click();
+	agreeInput.click();
+	buttoncretae.click();
 	}
 	
 
